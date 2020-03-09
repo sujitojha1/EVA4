@@ -8,7 +8,7 @@ class dataset_cifar10:
     Class to load the data and define the data loader
     """
 
-    def __init__(self,shuffle=True, sample=True):
+    def __init__(self, sample=True):
 
         # Defining CUDA
         cuda = torch.cuda.is_available()
@@ -25,7 +25,7 @@ class dataset_cifar10:
 
 
         # Defining data loaders with setting
-        self.dataloaders_args = dict(shuffle=shuffle, batch_size=batch_size, num_workers = 4, pin_memory = True) if cuda else dict(shuffle=shuffle,batch_size=64)
+        self.dataloaders_args = dict(shuffle=True, batch_size=batch_size, num_workers = 4, pin_memory = True) if cuda else dict(shuffle=True,batch_size=64)
 
         # Transformations in training phase
         self.train_aug_transforms_list=[
