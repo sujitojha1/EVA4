@@ -8,7 +8,7 @@ class dataset_cifar10:
     Class to load the data and define the data loader
     """
 
-    def __init__(self,dataset='CIFAR10',shuffle=True, sample=True):
+    def __init__(self,shuffle=True, sample=True):
 
         # Defining CUDA
         cuda = torch.cuda.is_available()
