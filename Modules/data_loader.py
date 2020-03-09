@@ -25,7 +25,7 @@ class dataset_cifar10:
 
 
         # Defining data loaders with setting
-        self.dataloaders_args = dict(shuffle=shuffle, batch_size=batch_size, num_workers = 4, pin_memory = True) if cuda else dict(shuffle=self.shuffle,batch_size=64)
+        self.dataloaders_args = dict(shuffle=shuffle, batch_size=batch_size, num_workers = 4, pin_memory = True) if cuda else dict(shuffle=shuffle,batch_size=64)
 
         # Transformations in training phase
         self.train_aug_transforms_list=[
