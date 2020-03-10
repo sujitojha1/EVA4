@@ -10,6 +10,9 @@ from tqdm import tqdm
 
 def test(net, device, testloader, optimizer, criterion):
 
+    global test_losses
+    global test_acc
+
     net.eval()
     test_loss = 0
     correct = 0
@@ -25,8 +28,12 @@ def test(net, device, testloader, optimizer, criterion):
             total += targets.size(0)
             correct += predicted.eq(targets).sum().item()
 
-            print(batch_idx, len(testloader), 'Loss: %.3f | Acc: %.3f%% (%d/%d)'
-                % (test_loss/(batch_idx+1), 100.*correct/total, correct, total))
+    test_loss /= len(testloader.dataset)
+    test_losses.append(test_loss)
 
-    # Save checkpoint.
-    acc = 100.*correct/total
+    print('\nTest set: Average loss: {:.4f}, Accuracy: {}/{} ({:.2f}%)\n'.format(
+        test_loss, correct, len(test_loader.dataset),
+        100. * correct / len(test_loader.dataset)))
+
+    # Save.
+    test_acc.append(100. * correct / len(test_loader.dataset))
