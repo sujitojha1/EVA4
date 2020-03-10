@@ -15,7 +15,7 @@ class test:
         self.test_losses = []
         self.test_acc    = []
 
-    def execute(self, net, device, testloader, optimizer, criterion):
+    def execute(self, net, device, testloader, criterion):
 
         net.eval()
         test_loss = 0
