@@ -56,4 +56,4 @@ class dataset_cifar10:
                                 download=True)
 
     def loader(self, train_flag=True):
-        return(torch.utils.data.DataLoader(data(train_flag=True), **self.dataloaders_args))
+        return(torch.utils.data.DataLoader(self.data(train_flag=True), **self.dataloaders_args))
