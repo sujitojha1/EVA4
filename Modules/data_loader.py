@@ -48,7 +48,7 @@ class dataset_cifar10:
         self.classes = ('plane', 'car', 'bird', 'cat',
             'deer', 'dog', 'frog', 'horse', 'ship', 'truck')
 
-    def data(self, train_flag=True):
+    def data(self, train_flag):
 
         if self.sample:
             # Transformations in testing phase
