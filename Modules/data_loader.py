@@ -74,7 +74,7 @@ class dataset_cifar10:
     def sample_pictures(self, train_flag=True):
 
         # get some random training images
-        dataiter = iter(self.sample_dataloaders_args(train_flag))
+        dataiter = iter(self.sample_loader(train_flag))
         images,labels = dataiter.next()
 
         fig = plt.figure(figsize=(20, 15))
