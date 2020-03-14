@@ -66,7 +66,7 @@ class dataset_cifar10:
         print(total_data.mean(axis=(0,1,2))/255)
         print(total_data.std(axis=(0,1,2))/255)
 
-    def sample_pictures(self, train_flag=True):
+    def sample_pictures(self, train_flag=True , return_flag = False):
 
         # get some random training images
         dataiter = iter(self.sample_loader(train_flag))
@@ -83,3 +83,6 @@ class dataset_cifar10:
 
         fig.tight_layout()  
         plt.show()
+
+        if return_flag:
+            return images,labels
