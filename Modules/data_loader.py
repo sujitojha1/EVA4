@@ -81,7 +81,7 @@ class dataset_cifar10:
 
         # Show images
         for idx in np.arange(len(labels.numpy())):
-                ax = fig.add_subplot(5, 5, idx, xticks=[], yticks=[])
+                ax = fig.add_subplot(5, 5, idx+1, xticks=[], yticks=[])
                 ax.imshow(np.squeeze(images[idx]), cmap='gray')
                 ax.set_title("Label={})".format(str(self.classes[labels[idx]])))
 
