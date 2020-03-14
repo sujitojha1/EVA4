@@ -24,21 +24,20 @@ class dataset_cifar10:
 
     def data(self, train_flag , trnsfm_flag=True):
 
-        trnsfm_list = []
+        trnsfm_list = [transforms.ToTensor()]
 
-        if train_flag:
-            # Transformations data augmentation (only for training)
-            trnsfm_list.extend([
-                                transforms.RandomCrop(32, padding=4),
-                                transforms.RandomHorizontalFlip(),
-                                transforms.ColorJitter(brightness=0.4, contrast=0.4, saturation=0.4, hue=0.1)
-                               ])
-
-        # Data base transform
-        trnsfm_list.append(transforms.ToTensor())
-
-        if trnsfm_flag:
-            # Testing transformation - normalization adder
+        # Transformations data augmentation (only for training)
+        if train_flag & trnsfm_flag:
+            
+            aug_list = [
+                        transforms.RandomCrop(32, padding=4),
+                        transforms.RandomHorizontalFlip(),
+                        transforms.ColorJitter(brightness=0.4, contrast=0.4, saturation=0.4, hue=0.1)
+                       ]
+            trnsfm_list = aug_list + trnsfm_list
+            
+        # Testing transformation - normalization adder
+        if not trnsfm_flag:
             trnsfm_list.append(transforms.Normalize((0.4914, 0.4822, 0.4465), (0.2023, 0.1994, 0.2010)))
 
         trnsfm = transforms.Compose(trnsfm_list)
@@ -55,4 +54,4 @@ class dataset_cifar10:
 
     # Sample Dataloader Function
     def sample_loader(self, train_flag=True):
-        return(torch.utils.data.DataLoader(self.data(train_flag, trnsfm_flag=False), **self.sample_dataloaders_args))
+        return(torch.utils.data.DataLoader(self.data(train_flag,trnsfm_flag=False), **self.sample_dataloaders_args))
