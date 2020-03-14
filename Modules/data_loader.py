@@ -55,4 +55,4 @@ class dataset_cifar10:
 
     # Sample Dataloader Function
     def sample_loader(self, train_flag=True):
-        return(torch.utils.data.DataLoader(self.data(train_flag), **self.sample_dataloaders_args))
+        return(torch.utils.data.DataLoader(self.data(train_flag, trnsfm_flag=False), **self.sample_dataloaders_args))
