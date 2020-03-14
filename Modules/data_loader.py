@@ -4,11 +4,6 @@ from torchvision import datasets, transforms
 import numpy as np
 import matplotlib.pyplot as plt
 
-def imshow(img): 
-    npimg = img.numpy()
-    # BRG transformed to RGB
-    plt.imshow(np.transpose(npimg,(1,2,0)))
-
 class dataset_cifar10:
     """
     Class to load the data and define the data loader
@@ -82,7 +77,8 @@ class dataset_cifar10:
         # Show images
         for idx in np.arange(len(labels.numpy())):
                 ax = fig.add_subplot(5, 5, idx+1, xticks=[], yticks=[])
-                ax.imshow(np.squeeze(images[idx]), cmap='gray')
+                npimg = np.transpose(images[idx].numpy(),(1,2,0))
+                ax.imshow(npimg, cmap='gray')
                 ax.set_title("Label={})".format(str(self.classes[labels[idx]])))
 
         fig.tight_layout()  
