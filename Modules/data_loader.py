@@ -1,7 +1,13 @@
 # Torch libraries
 import torch                   #PyTorch base libraries
 from torchvision import datasets, transforms
+import numpy as np
+import matplotlib.pyplot as plt
 
+def imshow(img): 
+    npimg = img.numpy()
+    # BRG transformed to RGB
+    plt.imshow(np.transpose(npimg,(1,2,0)))
 
 class dataset_cifar10:
     """
@@ -30,19 +36,17 @@ class dataset_cifar10:
 
             # Transformations data augmentation (only for training)
             if train_flag :
-                
                 aug_list = [
                             transforms.RandomCrop(32, padding=4),
                             transforms.RandomHorizontalFlip(),
                             transforms.ColorJitter(brightness=0.4, contrast=0.4, saturation=0.4, hue=0.1)
-                        ]
+                            ]
                 trnsfm_list = aug_list + trnsfm_list
 
             # Testing transformation - normalization adder
             trnsfm_list.append(transforms.Normalize((0.4914, 0.4822, 0.4465), (0.2023, 0.1994, 0.2010)))
 
         trnsfm = transforms.Compose(trnsfm_list)
-
         # Loading data
         return datasets.CIFAR10('./Data',
                                 train=train_flag,
@@ -56,3 +60,30 @@ class dataset_cifar10:
     # Sample Dataloader Function
     def sample_loader(self, train_flag=True):
         return(torch.utils.data.DataLoader(self.data(train_flag,trnsfm_flag=False), **self.sample_dataloaders_args))
+
+    def data_summary_stats(self):
+        # Load train data as numpy array
+        train_data = self.data(train_flag=True,trnsfm_flag=False).data
+        test_data = self.data(train_flag=False,trnsfm_flag=False).data
+
+        total_data = np.concatenate((train_data, test_data), axis=0)
+        print(total_data.shape)
+        print(total_data.mean(axis=(0,1,2))/255)
+        print(total_data.std(axis=(0,1,2))/255)
+
+    def sample_pictures(self, train_flag=True):
+
+        # get some random training images
+        dataiter = iter(self.sample_dataloaders_args(train_flag))
+        images,labels = dataiter.next()
+
+        fig = plt.figure(figsize=(20, 15))
+
+        # Show images
+        for idx in np.arange(len(labels.numpy())):
+                ax = fig.add_subplot(5, 5, idx, xticks=[], yticks=[])
+                ax.imshow(np.squeeze(images[idx]), cmap='gray')
+                ax.set_title("Label={})".format(str(classes[labels[idx]])))
+
+        fig.tight_layout()  
+        plt.show()
