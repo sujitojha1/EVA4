@@ -26,18 +26,19 @@ class dataset_cifar10:
 
         trnsfm_list = [transforms.ToTensor()]
 
-        # Transformations data augmentation (only for training)
-        if train_flag & trnsfm_flag:
-            
-            aug_list = [
-                        transforms.RandomCrop(32, padding=4),
-                        transforms.RandomHorizontalFlip(),
-                        transforms.ColorJitter(brightness=0.4, contrast=0.4, saturation=0.4, hue=0.1)
-                       ]
-            trnsfm_list = aug_list + trnsfm_list
-            
-        # Testing transformation - normalization adder
-        if not trnsfm_flag:
+        if trnsfm_flag:
+
+            # Transformations data augmentation (only for training)
+            if train_flag :
+                
+                aug_list = [
+                            transforms.RandomCrop(32, padding=4),
+                            transforms.RandomHorizontalFlip(),
+                            transforms.ColorJitter(brightness=0.4, contrast=0.4, saturation=0.4, hue=0.1)
+                        ]
+                trnsfm_list = aug_list + trnsfm_list
+
+            # Testing transformation - normalization adder
             trnsfm_list.append(transforms.Normalize((0.4914, 0.4822, 0.4465), (0.2023, 0.1994, 0.2010)))
 
         trnsfm = transforms.Compose(trnsfm_list)
