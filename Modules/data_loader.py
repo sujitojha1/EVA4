@@ -17,7 +17,7 @@ class dataset_cifar10:
 
         # Defining data loaders with setting
         self.dataloaders_args = dict(shuffle=True, batch_size = batch_size, num_workers = 4, pin_memory = True) if cuda else dict(shuffle=True,batch_size = batch_size)
-        self.sample_dataloaders_args = self.dataloaders_args
+        self.sample_dataloaders_args = self.dataloaders_args.copy()
         self.sample_dataloaders_args['batch_size'] = sample_batch_size
 
         self.classes = ('plane', 'car', 'bird', 'cat',
