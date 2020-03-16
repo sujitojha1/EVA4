@@ -1,3 +1,12 @@
+'''GradCAM in PyTorch.
+
+Grad-CAM implementation in Pytorch
+
+Reference:
+[1] https://github.com/jacobgil/pytorch-grad-cam
+[2] The paper authors torch implementation: https://github.com/ramprs/grad-cam
+'''
+
 import cv2
 import numpy as np
 import torch
@@ -117,7 +126,7 @@ class GradCam:
             cam += w * target[i, :, :]
 
         cam = np.maximum(cam, 0)
-        cam = cv2.resize(cam, (224, 224))
+        cam = cv2.resize(cam, (32, 32))
         cam = cam - np.min(cam)
         cam = cam / np.max(cam)
         return cam
