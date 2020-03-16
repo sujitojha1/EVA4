@@ -1,5 +1,4 @@
 
-import argparse
 import cv2
 import numpy as np
 import torch
@@ -190,21 +189,6 @@ class GuidedBackpropReLUModel:
 
         return output
 
-
-def get_args():
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--use-cuda', action='store_true', default=False,
-                        help='Use NVIDIA GPU acceleration')
-    parser.add_argument('--image-path', type=str, default='./examples/both.png',
-                        help='Input image path')
-    args = parser.parse_args()
-    args.use_cuda = args.use_cuda and torch.cuda.is_available()
-    if args.use_cuda:
-        print("Using GPU for acceleration")
-    else:
-        print("Using CPU for computation")
-
-    return args
 
 def deprocess_image(img):
     """ see https://github.com/jacobgil/keras-grad-cam/blob/master/grad-cam.py#L65 """
