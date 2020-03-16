@@ -57,8 +57,8 @@ class ModelOutputs():
 
 
 def preprocess_image(img):
-    means = [0.485, 0.456, 0.406]
-    stds = [0.229, 0.224, 0.225]
+    means = [0.4914, 0.4822, 0.4465]
+    stds = [0.2023, 0.1994, 0.2010]
 
     preprocessed_img = img.copy()[:, :, ::-1]
     for i in range(3):
