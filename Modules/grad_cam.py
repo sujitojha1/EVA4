@@ -110,8 +110,8 @@ class GradCam:
         else:
             one_hot = torch.sum(one_hot * output)
 
-        self.model.features.zero_grad()
-        self.model.classifier.zero_grad()
+        self.model.zero_grad()
+        # self.model.classifier.zero_grad()
         one_hot.backward(retain_graph=True)
 
         grads_val = self.extractor.get_gradients()[-1].cpu().data.numpy()
