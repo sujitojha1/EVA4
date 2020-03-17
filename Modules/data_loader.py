@@ -38,7 +38,7 @@ class dataset_cifar10:
                 aug_list = [
                             RandomCrop(30,30),
                             HorizontalFlip(),
-                            Cutout(max_holes=8, max_height=16, max_width=16, fill_value=[0.4914, 0.4822, 0.4465]),
+                            Cutout(num_holes=8, max_h_size=8, max_w_size=8, fill_value=[0.4914, 0.4822, 0.4465], always_apply=False, p=0.5),
                             ]
                 trnsfm_list = aug_list + trnsfm_list
 
