@@ -36,7 +36,7 @@ class dataset_cifar10:
             # Transformations data augmentation (only for training)
             if train_flag :
                 aug_list = [
-                            RandomCrop(30),
+                            RandomCrop(30,30),
                             HorizontalFlip(),
                             Cutout(max_holes=8, max_height=16, max_width=16, fill_value=[0.4914, 0.4822, 0.4465]),
                             ]
