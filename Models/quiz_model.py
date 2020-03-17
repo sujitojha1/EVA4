@@ -87,8 +87,8 @@ class DNN(nn.Module):
         # x11 = conv(x8 + x9 + x10)
         self.b9 = nn.Sequential(
             nn.Conv2d(1024, 1024, kernel_size=3, padding=1),
-            #nn.BatchNorm2d(1024),
-            #nn.ReLU(True),
+            nn.BatchNorm2d(1024),
+            nn.ReLU(True),
         )
 
         self.avgpool = nn.AvgPool2d(8, stride=1)
