@@ -108,5 +108,5 @@ class DNN(nn.Module):
         x11 = self.b9(torch.cat([x8,x9,x10], 1))
         x12 = self.avgpool(x11)
         x13 = x12.view(x12.size(0), -1)
-        out = self.linear(out)
+        out = self.linear(x13)
         return out
