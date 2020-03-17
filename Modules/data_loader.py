@@ -13,7 +13,7 @@ class album_Compose_train():
             RandomCrop(30,30),
             HorizontalFlip(),
             ShiftScaleRotate(shift_limit=0.0625, scale_limit=0.50, rotate_limit=45, p=.25),
-            Cutout(num_holes=1, max_h_size=16, max_w_size=16, fill_value=[0.4914, 0.4822, 0.4465], always_apply=False, p=0.5),
+            Cutout(num_holes=1, max_h_size=16, max_w_size=16, fill_value=0.4822, always_apply=False, p=0.5),
             Normalize(mean=[0.4914, 0.4822, 0.4465],std=[.2023, 0.1994, 0.2010]),
             ToTensor()
         ])
@@ -88,10 +88,10 @@ class dataset_cifar10:
         dataiter = iter(self.loader(train_flag))
         images,labels = dataiter.next()
 
-        images = images[0:5]
-        labels = labels[0:5]
+        images = images[0:25]
+        labels = labels[0:25]
 
-        fig = plt.figure(figsize=(10, 5))
+        fig = plt.figure(figsize=(10, 10))
 
         # Show images
         for idx in np.arange(len(labels.numpy())):
