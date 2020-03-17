@@ -3,7 +3,7 @@
 Grad-CAM implementation in Pytorch
 
 Reference:
-[1] https://github.com/jacobgil/pytorch-grad-cam
+[1] https://github.com/vickyliin/gradcam_plus_plus-pytorch
 [2] The paper authors torch implementation: https://github.com/ramprs/grad-cam
 '''
 
