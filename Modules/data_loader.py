@@ -12,7 +12,7 @@ class album_Compose_train():
         self.albumentations_transform = Compose([
             RandomCrop(30,30),
             HorizontalFlip(),
-            ShiftScaleRotate(shift_limit=0.0625, scale_limit=0.50, rotate_limit=45, p=.25),
+            ShiftScaleRotate(shift_limit=0.0625, scale_limit=0.10, rotate_limit=45, p=.25),
             Cutout(num_holes=1, max_h_size=16, max_w_size=16, fill_value=[0.4914, 0.4822, 0.4465], always_apply=False, p=0.5),
             Normalize(mean=[0.4914, 0.4822, 0.4465],std=[.2023, 0.1994, 0.2010]),
             ToTensor()
