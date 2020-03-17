@@ -4,7 +4,7 @@ from torchvision import datasets, transforms
 import numpy as np
 import matplotlib.pyplot as plt
 
-from albumentations import Compose, RandomCrop, Normalize, HorizontalFlip, Resize, Cutout
+from albumentations import Compose, RandomCrop, Normalize, HorizontalFlip, Resize, Cutout, ShiftScaleRotate,HueSaturationValue
 from albumentations.pytorch import ToTensor
 
 class album_Compose_train():
@@ -12,7 +12,9 @@ class album_Compose_train():
         self.albumentations_transform = Compose([
             RandomCrop(30,30),
             HorizontalFlip(),
-            Cutout(num_holes=8, max_h_size=8, max_w_size=8, fill_value=[0.4914, 0.4822, 0.4465], always_apply=False, p=0.5),
+            ShiftScaleRotate(shift_limit=0.0625, scale_limit=0.50, rotate_limit=45, p=.75),
+            HueSaturationValue(),
+            Cutout(num_holes=8, max_h_size=16, max_w_size=16, fill_value=[0.4914, 0.4822, 0.4465], always_apply=False, p=0.75),
             Normalize(mean=[0.4914, 0.4822, 0.4465],std=[.2023, 0.1994, 0.2010]),
             ToTensor()
         ])
