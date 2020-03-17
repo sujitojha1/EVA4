@@ -14,7 +14,7 @@ class album_Compose_train():
             HorizontalFlip(),
             ShiftScaleRotate(shift_limit=0.0625, scale_limit=0.50, rotate_limit=45, p=.75),
             HueSaturationValue(),
-            Cutout(num_holes=8, max_h_size=16, max_w_size=16, fill_value=[0.4914, 0.4822, 0.4465], always_apply=False, p=0.75),
+            Cutout(num_holes=1, max_h_size=16, max_w_size=16, fill_value=[0.4914, 0.4822, 0.4465], always_apply=False, p=0.75),
             Normalize(mean=[0.4914, 0.4822, 0.4465],std=[.2023, 0.1994, 0.2010]),
             ToTensor()
         ])
@@ -88,6 +88,9 @@ class dataset_cifar10:
         # get some random training images
         dataiter = iter(self.loader(train_flag))
         images,labels = dataiter.next()
+
+        images = images[0:5]
+        labels = labels[0:5]
 
         fig = plt.figure(figsize=(10, 5))
 
