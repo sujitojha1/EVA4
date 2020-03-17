@@ -96,7 +96,7 @@ class dataset_cifar10:
         # Show images
         for idx in np.arange(len(labels.numpy())):
                 ax = fig.add_subplot(5, 5, idx+1, xticks=[], yticks=[])
-                npimg = np.transpose(images[idx].numpy(),(1,2,0))
+                npimg = unnormalize(images[idx])
                 ax.imshow(npimg, cmap='gray')
                 ax.set_title("Label={}".format(str(self.classes[labels[idx]])))
 
@@ -105,3 +105,14 @@ class dataset_cifar10:
 
         if return_flag:
             return images,labels
+
+
+def unnormalize(img):
+    channel_means = (0.4914, 0.4822, 0.4465)
+    channel_stdevs = (.2023, 0.1994, 0.2010)
+    img = img.numpy().astype(dtype=np.float32)
+  
+    for i in range(img.shape[0]):
+         img[i] = (img[i]*channel_stdevs[i])+channel_means[i]
+  
+    return np.transpose(img, (1,2,0))
