@@ -49,7 +49,7 @@ class dataset_cifar10:
         # Loading data
         return datasets.CIFAR10('./Data',
                                 train=train_flag,
-                                transform=trnsfm,
+                                transform=trnsfm(),
                                 download=True)
 
     # Dataloader function
