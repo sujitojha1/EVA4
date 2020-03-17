@@ -28,7 +28,7 @@ class DNN(nn.Module):
         # Input layer - x1
         self.b1 = nn.Sequential(
             nn.Conv2d(3, 128, kernel_size=3, padding=1),
-            nn.BatchNorm2d(192),
+            nn.BatchNorm2d(128),
             nn.ReLU(True),
         )
         
