@@ -7,6 +7,20 @@ import matplotlib.pyplot as plt
 from albumentations import Compose, RandomCrop, Normalize, HorizontalFlip, Resize, Cutout
 from albumentations.pytorch import ToTensor
 
+class album_Compose():
+    def __init__(self):
+        self.albumentations_transform = Compose([
+            RandomCrop(30,30),
+            HorizontalFlip(),
+            Cutout(num_holes=8, max_h_size=8, max_w_size=8, fill_value=[0.4914, 0.4822, 0.4465], always_apply=False, p=0.5),
+            Normalize(mean=[0.4914, 0.4822, 0.4465],std=[.2023, 0.1994, 0.2010]),
+            ToTensor()
+        ])
+    def __call__(self,img):
+        img = np.array(img)
+        img = self.albumentations_transform(image=img)['image']
+        return img
+
 class dataset_cifar10:
     """
     Class to load the data and define the data loader
@@ -27,6 +41,9 @@ class dataset_cifar10:
             'deer', 'dog', 'frog', 'horse', 'ship', 'truck')
 
 
+    
+
+
     def data(self, train_flag , trnsfm_flag=True):
 
         trnsfm_list = [ToTensor()]
@@ -35,17 +52,15 @@ class dataset_cifar10:
 
             # Transformations data augmentation (only for training)
             if train_flag :
-                aug_list = [
-                            RandomCrop(30,30),
-                            HorizontalFlip(),
-                            Cutout(num_holes=8, max_h_size=8, max_w_size=8, fill_value=[0.4914, 0.4822, 0.4465], always_apply=False, p=0.5),
-                            ]
-                trnsfm_list = aug_list + trnsfm_list
+                return datasets.CIFAR10('./Data',
+                                train=train_flag,
+                                transform=album_Compose(),
+                                download=True)
 
             # Testing transformation - normalization adder
             trnsfm_list.append(Normalize(mean=[0.4914, 0.4822, 0.4465],std=[.2023, 0.1994, 0.2010]))
 
-        trnsfm = Compose(trnsfm_list)
+        trnsfm = transforms.Compose(trnsfm_list)
         # Loading data
         return datasets.CIFAR10('./Data',
                                 train=train_flag,
