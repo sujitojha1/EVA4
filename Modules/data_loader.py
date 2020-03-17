@@ -4,7 +4,6 @@ from torchvision import datasets, transforms
 import numpy as np
 import matplotlib.pyplot as plt
 
-!pip install -U git+https://github.com/albu/albumentations
 from albumentations import Compose, RandomCrop, Normalize, HorizontalFlip, Resize, Cutout
 from albumentations.pytorch import ToTensor
 
