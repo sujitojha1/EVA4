@@ -129,10 +129,6 @@ class Normalize(object):
         return self.__class__.__name__ + '(mean={0}, std={1})'.format(self.mean, self.std)
 
 
-import torch
-
-
-
 class GradCAM:
     """Calculate GradCAM salinecy map.
     Args:
