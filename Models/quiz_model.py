@@ -97,7 +97,7 @@ class DNN(nn.Module):
     def forward(self, x):
         x1 = self.b1(x)
         x2 = self.b2(x1)
-        x3 = self.b3(x+x2)
+        x3 = self.b3(x1+x2)
         x4 = self.maxpool(x1+x2+x3)
         x5 = self.b4(x4)
         x6 = self.b5(x4+x5)
