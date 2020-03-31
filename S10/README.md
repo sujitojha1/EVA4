@@ -18,8 +18,8 @@
 ## Results
 
 -  Total Parameters = 11,173,962
--  After 20 Epochs, Final Train Accuracy = 94.92%
--  After 20 Epochs, Final Test Accuracy = 92.27%
+-  After 50 Epochs, Final Train Accuracy = 94.92%
+-  After 50 Epochs, Final Test Accuracy = 92.27%
 
 
 ## Analysis
