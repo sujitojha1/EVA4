@@ -54,7 +54,7 @@ def plot_misclassified_images_w_gradcam(model, device, dataloader, classes):
     # initialize a model, model_dict and gradcam
     resnet = model
     resnet.eval()
-    gradcam = GradCAM.from_config(model_type='resnet', arch=resnet, layer_name='layer4')
+    gradcam = GradCAM.from_config(model_type='resnet', arch=resnet, layer_name='layer3')
 
 
     counter=1
