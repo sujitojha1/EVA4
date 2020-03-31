@@ -32,7 +32,7 @@ class test:
                 total += targets.size(0)
                 correct += predicted.eq(targets).sum().item()
 
-        test_loss /= len(testloader.dataset)
+        #test_loss /= len(testloader.dataset)
         self.test_losses.append(test_loss)
 
         print('\nTest set: Average loss: {:.4f}, Accuracy: {}/{} ({:.2f}%)\n'.format(
