@@ -78,3 +78,6 @@ class ResNet(nn.Module):
         out = self.linear(out)
 
         return out
+
+def ResNet_Cifar10():
+    return ResNet()
