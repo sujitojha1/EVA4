@@ -64,7 +64,7 @@ class ResNet(nn.Module):
         self.pool1 = nn.MaxPool2d(4,4)
 
         # Fully Connected Layer
-        self.fc = nn.Linear(512, 10)
+        self.fc = nn.Conv2d(512, 10, kernel_size=1, padding=0, bias=False)
 
 
     def forward(self, x):
@@ -73,11 +73,10 @@ class ResNet(nn.Module):
         out = self.layer2(out)
         out = self.layer3(out)
         out = self.pool1(out)
-        #out = self.fc(out)
-        out = out.view(out.size(0), -1)
         out = self.fc(out)
+        out = out.view(-1,10)
+        return F.log_softmax(out, dim=-1)
 
-        return out
 
 def ResNet_Cifar10():
     return ResNet()
