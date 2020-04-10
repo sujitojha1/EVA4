@@ -63,6 +63,9 @@ class ResNet(nn.Module):
 
         self.pool1 = nn.MaxPool2d(4,4)
 
+        # Fully Connected Layer
+        self.fc = nn.Conv2d(512, 10, kernel_size=1, padding=0, bias=False)
+
 
     def forward(self, x):
         out = self.preplayer(x)
@@ -70,6 +73,7 @@ class ResNet(nn.Module):
         out = self.layer2(out)
         out = self.layer3(out)
         out = self.pool1(out)
+        out = self.fc(out)
         out = out.view(-1,10)
         return F.log_softmax(out, dim=-1)
 
