@@ -36,7 +36,7 @@ class ResBlock(nn.Module):
 
 
 class ResNet(nn.Module):
-    def __init__(self, num_classes=10):
+    def __init__(self):
         super(ResNet, self).__init__()
         #self.in_planes = 64
 
@@ -70,7 +70,7 @@ class ResNet(nn.Module):
         out = self.layer2(out)
         out = self.layer3(out)
         out = self.pool1(out)
-        out = out.view(-1,self.num_classes)
+        out = out.view(-1,10)
         return F.log_softmax(out, dim=-1)
 
 
