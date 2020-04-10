@@ -73,9 +73,9 @@ class ResNet(nn.Module):
         out = self.layer2(out)
         out = self.layer3(out)
         out = self.pool1(out)
-        out = self.fc(out)
+        #out = self.fc(out)
         out = out.view(out.size(0), -1)
-        out = self.linear(out)
+        out = self.fc(out)
 
         return out
 
