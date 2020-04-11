@@ -17,21 +17,24 @@ class ResBlock(nn.Module):
 
     def __init__(self, in_planes, planes):
         super(ResBlock, self).__init__()
-        self.conv1 = nn.Conv2d(in_planes, planes, kernel_size=3, stride=2, padding=1, bias=False)
+        self.conv1 = nn.Conv2d(in_planes, planes, kernel_size=3, stride=1, padding=1, bias=False)
         self.bn1 = nn.BatchNorm2d(planes)
         self.conv2 = nn.Conv2d(planes, planes, kernel_size=3, stride=1, padding=1, bias=False)
         self.bn2 = nn.BatchNorm2d(planes)
 
-        self.shortcut = nn.Sequential(
-                nn.Conv2d(in_planes, planes, kernel_size=3, stride=1, padding=1, bias=False),
-                nn.MaxPool2d(2, 2),
-                nn.BatchNorm2d(planes),
-        )
+        self.shortcut = nn.Sequential()
+
+        # self.shortcut = nn.Sequential(
+        #         nn.Conv2d(in_planes, planes, kernel_size=3, stride=1, padding=1, bias=False),
+        #         nn.MaxPool2d(2, 2),
+        #         nn.BatchNorm2d(planes),
+        # )
 
     def forward(self, x):
-        out  = F.relu(self.bn1(self.conv1(x)))
-        out  = F.relu(self.bn2(self.conv2(out)))
+        out = F.relu(self.bn1(self.conv1(x)))
+        out = self.bn2(self.conv2(out))
         out += self.shortcut(x)
+        out = F.relu(out)
         return out
 
 
@@ -48,7 +51,13 @@ class ResNet(nn.Module):
         )
 
         # Layer 1
-        self.layer1 = ResBlock(64, 128)
+        self.layer1_conv = nn.Sequential(
+            nn.Conv2d(64, 128, kernel_size=3, stride=1, padding=1, bias=False),
+            nn.MaxPool2d(2, 2),
+            nn.BatchNorm2d(128),
+            nn.ReLU()
+        )
+        self.layer1_ResBlock = ResBlock(128, 128)
 
         # Layer 2
         self.layer2 = nn.Sequential(
@@ -59,7 +68,13 @@ class ResNet(nn.Module):
         )
 
         # Layer 3
-        self.layer3 = ResBlock(256, 512)
+        self.layer3_conv = nn.Sequential(
+            nn.Conv2d(256, 512, kernel_size=3, stride=1, padding=1, bias=False),
+            nn.MaxPool2d(2, 2),
+            nn.BatchNorm2d(512),
+            nn.ReLU()
+        )
+        self.layer3_ResBlock = ResBlock(512, 512)
 
         self.pool1 = nn.MaxPool2d(4,4)
 
@@ -68,13 +83,15 @@ class ResNet(nn.Module):
 
 
     def forward(self, x):
-        out = self.preplayer(x)
-        out = self.layer1(out)
-        out = self.layer2(out)
-        out = self.layer3(out)
-        out = self.pool1(out)
-        out = self.fc(out)
-        out = out.view(-1,10)
+        out  = self.preplayer(x)
+        out  = self.layer1_conv(out)
+        out += self.layer1_ResBlock(out)
+        out  = self.layer2(out)
+        out  = self.layer3_conv(out)
+        out += self.layer3_ResBlock(out)
+        out  = self.pool1(out)
+        out  = self.fc(out)
+        out  = out.view(-1,10)
         return F.log_softmax(out, dim=-1)
 
 
