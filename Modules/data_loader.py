@@ -4,6 +4,33 @@ from torchvision import datasets, transforms
 import numpy as np
 import matplotlib.pyplot as plt
 
+from albumentations import Compose, RandomCrop,RandomBrightnessContrast, GaussianBlur, Normalize, HorizontalFlip, Resize, Cutout, ShiftScaleRotate,HueSaturationValue
+from albumentations.pytorch import ToTensor
+
+class album_Compose_train():
+    def __init__(self):
+        self.albumentations_transform = Compose([
+            RandomCrop(32,32),
+            HorizontalFlip(),
+            Cutout(num_holes=1, max_h_size=8, max_w_size=8, fill_value=[0.4914*255, 0.4822*255, 0.4465*255], always_apply=False, p=0.75),
+            Normalize(mean=[0.4914, 0.4822, 0.4465],std=[.2023, 0.1994, 0.2010]),
+            ToTensor()
+        ])
+    def __call__(self,img):
+        img = np.array(img)
+        img = self.albumentations_transform(image=img)['image']
+        return img
+
+class album_Compose_test():
+    def __init__(self):
+        self.albumentations_transform = Compose([
+            Normalize(mean=[0.4914, 0.4822, 0.4465],std=[.2023, 0.1994, 0.2010]),
+            ToTensor()
+        ])
+    def __call__(self,img):
+        img = np.array(img)
+        img = self.albumentations_transform(image=img)['image']
+        return img
 
 class dataset_cifar10:
     """
@@ -27,29 +54,16 @@ class dataset_cifar10:
 
         # Transformations data augmentation (only for training)
         if train_flag :
-            trnsfm = transforms.Compose([
-                                         transforms.Pad(4,padding_mode='edge'),
-                                         transforms.RandomCrop(32),
-                                         transforms.RandomHorizontalFlip(),
-                                         transforms.ColorJitter(brightness=0.4, contrast=0.4, saturation=0.4, hue=0.1),
-                                         transforms.RandomErasing(p=0.5, scale=(0.24,0.25), ratio=(0.99,1.0), value=0),
-                                         transforms.ToTensor(),
-                                         transforms.Normalize((0.4914, 0.4822, 0.4465), (0.2023, 0.1994, 0.2010))
-                                         ])
             return datasets.CIFAR10('./Data',
                             train=train_flag,
-                            transform=trnsfm,
+                            transform=album_Compose_train(),
                             download=True)
 
         # Testing transformation - normalization adder
         else:
-            trnsfm = transforms.Compose([
-                                         transforms.ToTensor(),
-                                         transforms.Normalize((0.4914, 0.4822, 0.4465), (0.2023, 0.1994, 0.2010))
-                                         ])
             return datasets.CIFAR10('./Data',
                                 train=train_flag,
-                                transform=trnsfm,
+                                transform=album_Compose_test(),
                                 download=True)
 
     # Dataloader function
