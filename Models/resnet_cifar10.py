@@ -76,6 +76,8 @@ class ResNet(nn.Module):
         )
         self.layer3_ResBlock = ResBlock(512, 512)
 
+        self.layer3 = nn.Sequential()
+
         self.pool1 = nn.MaxPool2d(4,4)
 
         # Fully Connected Layer
@@ -90,7 +92,7 @@ class ResNet(nn.Module):
         layer2 = self.layer2(layer1)
         x3     = self.layer3_conv(layer2)
         R3     = self.layer3_ResBlock(x3)
-        layer3 = x3 + R3
+        layer3 = self.layer3(x3 + R3)
         pool1  = self.pool1(layer3)
         fc     = self.fc(pool1)
         out    = fc.view(-1,10)
