@@ -2,26 +2,51 @@
 
 ## Target:
 
--  Make sure to Add CutOut to your code. It should come from your transformations (albumentations)
--  Use this repo: https://github.com/davidtvs/pytorch-lr-finder (Links to an external site.)
-    -  Move LR Finder code to your modules
-    -  Implement LR Finder (for SGD, not for ADAM)
-    -  Implement ReduceLROnPlatea: https://pytorch.org/docs/stable/optim.html#torch.optim.lr_scheduler.ReduceLROnPlateau (Links to an external site.)
--  Find best LR to train your model
--  Use SDG with Momentum
--  Train for 50 Epochs.
--  Show Training and Test Accuracy curves
--  Target Accuracy is 88%
--  Run GradCAM on the any 25 misclassified images. Make sure you mention what is the prediction and what was the ground truth label.
--  Submit answers to S10-Assignment-Solution.
+*  Write a code that draws this curve (without the arrows). In submission, you'll upload your drawn curve and code for that
+    * 11s11.png 
+*  Write a code which
+  1. uses this new ResNet Architecture for Cifar10:
+    * PrepLayer - Conv 3x3 s1, p1) >> BN >> RELU [64k]
+    * Layer1 -
+        * X = Conv 3x3 (s1, p1) >> MaxPool2D >> BN >> RELU [128k]
+        * R1 = ResBlock( (Conv-BN-ReLU-Conv-BN-ReLU))(X) [128k] 
+        * Add(X, R1)
+    * Layer 2 -
+        * Conv 3x3 [256k]
+        * MaxPooling2D
+        * BN
+        * ReLU
+    * Layer 3 -
+        * X = Conv 3x3 (s1, p1) >> MaxPool2D >> BN >> RELU [512k]
+        * R2 = ResBlock( (Conv-BN-ReLU-Conv-BN-ReLU))(X) [512k]
+        * Add(X, R2)
+    * MaxPooling with Kernel Size 4
+    * FC Layer 
+    * SoftMax
+  2. Uses One Cycle Policy such that:
+    * Total Epochs = 24
+    * Max at Epoch = 5
+    * LRMIN = FIND
+    * LRMAX = FIND
+    * NO Annihilation
+  3. Uses this transform -RandomCrop 32, 32 (after padding of 4) >> FlipLR >> Followed by CutOut(8, 8)
+  4. Batch size = 512
+  5. Target Accuracy: 90%. 
+  6. The lesser the modular your code is (i.e. more the code you have written in your Colab file), less marks you'd get. 
+* Questions asked are:
+  1. Upload the code you used to draw your ZIGZAG or CYCLIC TRIANGLE plot.
+  2. Upload your triangle Plot which was drawn with your code.
+  3. Upload the link to your GitHub copy of Colab Code. 
+  4. Upload the github link for the model as described in A11. 
+  5. What is your test accuracy?
 
 ## Results
 
--  Total Parameters = 11,173,962
--  After 50 Epochs, Final Train Accuracy = 95.13%
--  After 50 Epochs, Final Test Accuracy = 92.65%
+*  Total Parameters = 6,573,120
+*  After 24 Epochs, Final Train Accuracy = 95.75%
+*  After 24 Epochs, Final Test Accuracy = 90.27%
 
 
 ## Analysis
 
--  Target accuracy > 88% using Reset18 architecture. Model performance is good as train and test accuracy is small.
+*  Target accuracy > 90% using Reset18 new architecture. Model performance is slightly overfitting.
