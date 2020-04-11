@@ -4,12 +4,15 @@ from torchvision import datasets, transforms
 import numpy as np
 import matplotlib.pyplot as plt
 
-from albumentations import Compose, RandomCrop,RandomBrightnessContrast, GaussianBlur, Normalize, HorizontalFlip, Resize, Cutout, ShiftScaleRotate,HueSaturationValue
+import cv2
+
+from albumentations import Compose, PadIfNeeded, RandomCrop,RandomBrightnessContrast, GaussianBlur, Normalize, HorizontalFlip, Resize, Cutout, ShiftScaleRotate,HueSaturationValue
 from albumentations.pytorch import ToTensor
 
 class album_Compose_train():
     def __init__(self):
         self.albumentations_transform = Compose([
+            PadIfNeeded(40,40),
             RandomCrop(32,32),
             HorizontalFlip(),
             #RandomBrightnessContrast(brightness_limit=0.2, contrast_limit=0.2, brightness_by_max=True, p=0.5),
