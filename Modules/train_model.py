@@ -15,7 +15,7 @@ class train:
         self.train_acc    = []
 
     # Training
-    def execute(self,net, device, trainloader, optimizer, criterion,epoch):
+    def execute(self,net, device, trainloader, optimizer, criterion,epoch,scheduler):
 
         print('\nEpoch: %d' % epoch)
         net.train()
@@ -54,3 +54,5 @@ class train:
 
             pbar.set_description(desc= f'Loss={loss.item()} Batch_id={batch_idx} Accuracy={100*correct/processed:0.2f}')
             self.train_acc.append(100*correct/processed)
+
+            scheduler.step()
