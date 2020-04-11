@@ -83,15 +83,17 @@ class ResNet(nn.Module):
 
 
     def forward(self, x):
-        out  = self.preplayer(x)
-        out  = self.layer1_conv(out)
-        out += self.layer1_ResBlock(out)
-        out  = self.layer2(out)
-        out  = self.layer3_conv(out)
-        out += self.layer3_ResBlock(out)
-        out  = self.pool1(out)
-        out  = self.fc(out)
-        out  = out.view(-1,10)
+        prep   = self.preplayer(x)
+        x1     = self.layer1_conv(prep)
+        R1     = self.layer1_ResBlock(x1)
+        layer1 = x1 + R1
+        layer2 = self.layer2(layer1)
+        x3     = self.layer3_conv(layer2)
+        R3     = self.layer3_ResBlock(x3)
+        layer3 = x3 + R3
+        pool1  = self.pool1(layer3)
+        fc     = self.fc(pool1)
+        out    = fc.view(-1,10)
         return F.log_softmax(out, dim=-1)
 
 
