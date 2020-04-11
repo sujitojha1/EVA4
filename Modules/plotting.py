@@ -109,7 +109,7 @@ def plot_train_test_acc_loss(train,test):
     
     
     fig, axs = plt.subplots(2,1,figsize=(10,10))
-    x = np.linspace(0.0, 50.0, num=len(train.train_losses))
+    x = np.linspace(0.0, 24.0, num=len(train.train_losses))
 
     axs[0].plot(x,train.train_losses, label='Training')
     axs[0].set_ylabel("Training Loss", fontsize=16)
