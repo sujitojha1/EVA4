@@ -32,7 +32,7 @@ class dataset_cifar10:
                                          transforms.RandomCrop(32),
                                          transforms.RandomHorizontalFlip(),
                                          transforms.ColorJitter(brightness=0.4, contrast=0.4, saturation=0.4, hue=0.1),
-                                         transforms.RandomErasing(p=0.5, scale=(0.25, 0.25), ratio=(0.25, 0.25), value=0),
+                                         #transforms.RandomErasing(p=0.5, scale=(0.25, 0.25), ratio=(0.25, 0.25), value=0),
                                          transforms.ToTensor(),
                                          transforms.Normalize((0.4914, 0.4822, 0.4465), (0.2023, 0.1994, 0.2010))
                                          ])
