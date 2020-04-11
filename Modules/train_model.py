@@ -46,13 +46,15 @@ class train:
             loss.backward()
             optimizer.step()
 
+            scheduler.step()
+            lr_val = scheduler.get_lr()
+
             train_loss += loss.item()
             
             _, predicted = outputs.max(1)
             processed += targets.size(0)
             correct += predicted.eq(targets).sum().item()
 
-            pbar.set_description(desc= f'Loss={loss.item()} Batch_id={batch_idx} Accuracy={100*correct/processed:0.2f}')
+            pbar.set_description(desc= f'Loss={loss.item():0.4f} Batch_id={batch_idx} LR={lr_val:0.2f} Accuracy={100*correct/processed:0.2f}')
             self.train_acc.append(100*correct/processed)
-
-            scheduler.step()
+            
