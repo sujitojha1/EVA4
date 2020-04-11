@@ -125,7 +125,7 @@ def plot_train_test_acc_loss(train,test):
 
     color = 'tab:red'
     axs0_sec = axs[0].twinx() 
-    x = np.linspace(0.0, 50.0, num=len(test.test_losses))
+    x = np.linspace(0.0, 24.0, num=len(test.test_losses))
 
     axs0_sec.plot(x,test.test_losses, color=color,label='Test')
     
