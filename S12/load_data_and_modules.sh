@@ -1,8 +1,3 @@
-# Load modules/models from EVA course
-rm -rf EVA4
-git clone -b rev5 https://github.com/sujitojha1/EVA4 -q --quiet
-echo "Loaded EVA4 Modules"
-
 # Installing latest Albumentation library
 pip install -U git+https://github.com/albu/albumentations -q --quiet
 echo "Pip installation of Albumentation done !!"
