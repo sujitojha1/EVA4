@@ -123,7 +123,7 @@ class album_Compose_tiny_imagenet_train():
             #RandomBrightnessContrast(brightness_limit=0.2, contrast_limit=0.2, brightness_by_max=True, p=0.5),
             #GaussianBlur(blur_limit=3, p=0.25),
             #ShiftScaleRotate(shift_limit=0.0625, scale_limit=0.30, rotate_limit=45, p=.35),
-            Cutout(num_holes=1, max_h_size=8, max_w_size=8, fill_value=[0.485*255, 0.456*255, 0.406*255], always_apply=True, p=1.00),
+            Cutout(num_holes=1, max_h_size=20, max_w_size=20, fill_value=[0.485*255, 0.456*255, 0.406*255], always_apply=True, p=1.00),
             Normalize(mean=[0.485, 0.456, 0.406],std=[0.229, 0.224, 0.225]),
             ToTensor()
         ])
@@ -198,8 +198,8 @@ class dataset_tiny_imagenet:
 
     def data_summary_stats(self):
         # Load train data as numpy array
-        train_data = self.data(train_flag=True).data
-        test_data = self.data(train_flag=False).data
+        train_data = self.data(train_flag=True)
+        test_data = self.data(train_flag=False)
 
         total_data = np.concatenate((train_data, test_data), axis=0)
         print(total_data.shape)
