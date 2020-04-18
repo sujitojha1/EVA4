@@ -78,7 +78,7 @@ class ResNet(nn.Module):
 
         self.layer3 = nn.Sequential()
 
-        self.pool1 = nn.MaxPool2d(8,8)
+        self.pool1 = nn.adaptive_avg_pool2d(1)
 
         # Fully Connected Layer
         self.fc = nn.Conv2d(512, 200, kernel_size=1, padding=0, bias=False)
