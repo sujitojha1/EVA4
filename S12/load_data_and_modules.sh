@@ -10,9 +10,6 @@ wget -nc -q http://cs231n.stanford.edu/tiny-imagenet-200.zip
 unzip tiny-imagenet-200.zip
 
 set echo on
-# rm -r ./tiny-imagenet-200/test
-# python3 EVA4/S12/val_format.py
+rm -r ./tiny-imagenet-200/test
+python3 EVA4/S12/val_format.py
 # find . -name "*.txt" -delete
-# mkdir models
-# cp -r tiny-imagenet-200 tiny-224
-# python3 resize.py
