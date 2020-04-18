@@ -120,9 +120,9 @@ class album_Compose_tiny_imagenet_train():
             PadIfNeeded(70,70),
             RandomCrop(64,64),
             HorizontalFlip(),
-            #RandomBrightnessContrast(brightness_limit=0.2, contrast_limit=0.2, brightness_by_max=True, p=0.5),
+            RandomBrightnessContrast(brightness_limit=0.2, contrast_limit=0.2, brightness_by_max=True, p=0.35),
             #GaussianBlur(blur_limit=3, p=0.25),
-            #ShiftScaleRotate(shift_limit=0.0625, scale_limit=0.30, rotate_limit=45, p=.35),
+            ShiftScaleRotate(shift_limit=0.0625, scale_limit=0.30, rotate_limit=45, p=.35),
             Cutout(num_holes=1, max_h_size=20, max_w_size=20, fill_value=[0.485*255, 0.456*255, 0.406*255], always_apply=True, p=1.00),
             Normalize(mean=[0.485, 0.456, 0.406],std=[0.229, 0.224, 0.225]),
             ToTensor()
