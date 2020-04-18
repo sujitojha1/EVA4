@@ -23,7 +23,7 @@ def plot_misclassified_images(model, device, dataloader, classes):
         output = model(data)
         # convert output probabilities to predicted class
         _, preds = torch.max(output, 1)
-        images = denormalize(data,mean=(0.4914, 0.4822, 0.4465),std=(0.2023, 0.1994, 0.2010)).cpu().numpy()
+        images = denormalize(data,mean=(0.485, 0.456, 0.406),std=(0.229, 0.224, 0.225)).cpu().numpy()
 
         
         #print(np.arange(len(preds.cpu().numpy())))
@@ -77,7 +77,7 @@ def plot_misclassified_images_w_gradcam(model, device, dataloader, classes):
 
                 # get an image and normalize with mean=(0.485, 0.456, 0.406), std=(0.229, 0.224, 0.225)
                 img = img.unsqueeze(0).to(device)
-                org_img = denormalize(img,mean=(0.4914, 0.4822, 0.4465),std=(0.2023, 0.1994, 0.2010))
+                org_img = denormalize(img,mean=(0.485, 0.456, 0.406),std=(0.229, 0.224, 0.225))
 
                 # get a GradCAM saliency map on the class index 10.
                 mask, logit = gradcam(img, class_idx=lbl)
