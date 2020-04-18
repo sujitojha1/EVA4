@@ -28,6 +28,8 @@ class train:
         for batch_idx, (inputs, targets) in enumerate(pbar):
             # get samples
             inputs, targets = inputs.to(device), targets.to(device)
+            print(inputs.shape)
+            print(targets.shape)
 
             # Init
             optimizer.zero_grad()
