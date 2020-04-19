@@ -1,0 +1,59 @@
+{
+    "info": {                  # info contains how annotation was generated
+        "year": 2020,          #annotation year
+        "version": "1",        #Version of annotation for version control
+        "description": "Exported using VGG Image Annotator (http://www.robots.ox.ac.uk/~vgg/software/via/)", #Software used for annotation
+        "contributor": "Sujit Kumar Ojha",                                           # who annotated
+        "url": "http://www.robots.ox.ac.uk/~vgg/software/via/",                      # reference link for annotation software
+        "date_created": "Sun Apr 19 2020 19:55:27 GMT+0530 (India Standard Time)"    #  Date when it was created/annotated
+    },
+    "images": [                                                                     # images list with id and thier properties 
+        {
+            "id": 0,                                                                # image id for reference with annotation and other properties
+            "width": 1008,                                                          # width of image
+            "height": 756,                                                          # height of image
+            "file_name": "00100trPORTRAIT_00100_BURST20191126134713895_COVER.jpg",  # filename
+            "license": 1,                                                           # license id for reference with license details
+            "date_captured": ""                                                     # date of image captured
+        }
+    ],
+    "annotations": [                   # annotation with reference id, image id and bouding box details
+        {
+            "id": 0,                   # annotation id
+            "image_id": "0",           # image id, linking to image above
+            "category_id": 1,          # class/category id with reference in below about class details
+            "segmentation": [          # Segmentation captures x,y co-ordinates of each point describing bounding box or segmentation
+                102,                   # point 1 x co-ordinate in pixel
+                131,                   # point 1 y co-ordinate in pixel
+                976,                   # point 2 x co-ordinate in pixel
+                131,                   # point 2 y co-ordinate in pixel
+                976,                   # point 3 x co-ordinate in pixel
+                650,                   # point 3 y co-ordinate in pixel
+                102,                   # point 4 x co-ordinate in pixel
+                650                    # point 4 y co-ordinate in pixel
+            ],
+            "area": 453606,            # area of bounding box or segmentation, in pixel unit
+            "bbox": [                  # bounding box details
+                102,                   # left top corner: x pixel from left
+                131,                   # left top corner: y pixel from top
+                874,                   # width of Bounding box
+                519                    # height of Bounding box
+            ],
+            "iscrowd": 0               # Is it single object of group/crowd of object, 0 indicate single object
+        }
+    ],
+    "licenses": [                               #License details for each id
+        {
+            "id": 1,                            # license id
+            "name": "Unknown",                  # license name
+            "url": "https://dog.ceo/dog-api/"   # license reference url
+        }
+    ],
+    "categories": [                      # class and category details with reference id
+        {
+            "id": 1,                     # class id 1 and its details
+            "name": "Dog",               # class name
+            "supercategory": "Animal"    # parent class name
+        }
+    ]
+}
