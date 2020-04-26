@@ -1,38 +1,25 @@
-# Problem Statement EVA 4, Session12 : Tine Imagenet
+# Problem Statement EVA 4, Session13 : YoloV3
 
-## Target:
+Assignment: 
 
-*  Assignment A:
-  1. Download this TINY IMAGENET (Links to an external site.) dataset.
-  2. Train ResNet18 on this dataset (70/30 split) for 50 Epochs. Target 50%+ Validation Accuracy.
-  3. Submit Results. Of course, you are using your own package for everything. You can look at this (Links to an external site.) for reference.
-
-## Results
-
-*  Total Parameters = 11,271,432
-*  After 50 Epochs, Final Train Accuracy = 89.47%
-*  After 50 Epochs, Final Test Accuracy = 59.12%
-
-
-## Analysis
-
-*  Target accuracy > 50% using Reset18 new architecture. Model performance is not good as it severly overfitting.
-
-#
-
-## Target:
-
-* Assignment B:
-  1. Download 50 images of dogs. Use this (Links to an external site.) to annotate bounding boxes around the dogs.
-  2. Download JSON file.
-  3. Describe the contents of this JSON file in FULL details (you don't need to describe all 10 instances, anyone would work).
-  4. Refer to this tutorial (Links to an external site.). Find out the best total numbers of clusters. Upload link to your Colab File uploaded to GitHub.
-
-## Results
-
-Total number of clusters (no transformation) = 5
-Total number of clusters with log transformation = 5
-
-## Analysis
-
-Total number of cluster of bounding boxes are 5
+1. OpenCV Yolo: SOURCE (Links to an external site.)
+  1. Run this above code on your laptop or Colab. 
+  2. Take an image of yourself, holding another object which is there in COCO data set (search for COCO classes to learn). 
+  3. Run this image through the code above. 
+  4. Upload the link to GitHub implementation of this
+  5. Upload the annotated image by YOLO. 
+2. Training Custom Dataset on Colab for YoloV3
+  1. Refer to this Colab File: LINK (Links to an external site.)
+  2. Refer to this GitHub Repo (Links to an external site.)
+  3. Collect a dataset of 500 images and annotate them. Please select a class for which you can find a YouTube video as well. Steps are explained in the readme.md file on GitHub.
+  4. Once done:
+    a. Download (Links to an external site.) a very small (~10-30sec) video from youtube which shows your class. 
+    b. Use ffmpeg (Links to an external site.) to extract frames from the video. 
+    c. Upload on your drive (alternatively you could be doing all of this on your drive to save upload time)
+    d. Inter on these images using detect.py file. **Modify** detect.py file if your file names do not match the ones mentioned on GitHub. 
+    e. `python detect.py --conf-thres 0.3 --output output_folder_name`
+    f. Use ffmpeg (Links to an external site.) to convert the files in your output folder to video
+    g. Upload the video to YouTube. 
+  5. Share the link to your GitHub project with the steps as mentioned above
+  6. Share the link of your YouTube video
+  7. Share the link of your YouTube video on LinkedIn, Instagram, etc! You have no idea how much you'd love people complimenting you! 
