@@ -1,25 +1,30 @@
-# Problem Statement EVA 4, Session13 : YoloV3
+# Problem Statement EVA 4, Session 14 & 15 : DepthMap
 
 Assignment: 
 
-1. OpenCV Yolo: SOURCE (Links to an external site.)
-  1. Run this above code on your laptop or Colab. 
-  2. Take an image of yourself, holding another object which is there in COCO data set (search for COCO classes to learn). 
-  3. Run this image through the code above. 
-  4. Upload the link to GitHub implementation of this
-  5. Upload the annotated image by YOLO. 
-2. Training Custom Dataset on Colab for YoloV3
-  1. Refer to this Colab File: LINK (Links to an external site.)
-  2. Refer to this GitHub Repo (Links to an external site.)
-  3. Collect a dataset of 500 images and annotate them. Please select a class for which you can find a YouTube video as well. Steps are explained in the readme.md file on GitHub.
-  4. Once done:
-    a. Download (Links to an external site.) a very small (~10-30sec) video from youtube which shows your class. 
-    b. Use ffmpeg (Links to an external site.) to extract frames from the video. 
-    c. Upload on your drive (alternatively you could be doing all of this on your drive to save upload time)
-    d. Inter on these images using detect.py file. **Modify** detect.py file if your file names do not match the ones mentioned on GitHub. 
-    e. `python detect.py --conf-thres 0.3 --output output_folder_name`
-    f. Use ffmpeg (Links to an external site.) to convert the files in your output folder to video
-    g. Upload the video to YouTube. 
-  5. Share the link to your GitHub project with the steps as mentioned above
-  6. Share the link of your YouTube video
-  7. Share the link of your YouTube video on LinkedIn, Instagram, etc! You have no idea how much you'd love people complimenting you! 
+- You must have 100 background, 100x2 (including flip), and you randomly place the foreground on the background 20 times, you have in total 100x200x20 images. 
+
+In total you MUST have:
+- 400k fg_bg images
+- 400k depth images
+- 400k mask images
+generated from:
+- 100 backgrounds
+- 100 foregrounds, plus their flips
+- 20 random placement on each background.
+
+Now add a readme file on GitHub for Project 15A:
+- Create this dataset and share a link to GDrive (publicly available to anyone) in this readme file. 
+- Add your dataset statistics:
+  - Kinds of images (fg, bg, fg_bg, masks, depth)
+  - Total images of each kind
+  - The total size of the dataset
+  - Mean/STD values for your fg_bg, masks and depth images
+- Show your dataset the way I have shown above in this readme
+- Explain how you created your dataset
+  - how were fg created with transparency
+  - how were masks created for fgs
+  - how did you overlay the fg over bg and created 20 variants
+  - how did you create your depth images? 
+  - Add the notebook file to your repo, one which you used to create this dataset
+  - Add the notebook file to your repo, one which you used to calculate statistics for this dataset
