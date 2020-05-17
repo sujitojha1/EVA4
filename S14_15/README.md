@@ -20,11 +20,14 @@ Now add a readme file on GitHub for Project 15A:
   - ![Mask](images/mask_subset.png) 
   - Depth Map of above images (400k)
   - ![Depthmap](images/depth_map_subset.png) 
-  - Mean/STD values for your fg_bg, masks and depth images
+  - Mean/STD values for 
+     - fg_bg, mean = [0.5704, 0.5221, 0.4675] and std = [0.2504, 0.2552, 0.2709]
+     - masks, mean = [0.0345, 0.0345, 0.0345] and std = [0.1796, 0.1796, 0.1796]
+     - depth images, mean = [0.3448] and std = [0.1401]
 - Explaining steps followed to create dataset
   - Foreground created with transparency: Randomly selected images from internet with CC0 license and then removed background using powerpoint.
   - Masks for foreground was created using GIMP by selecting the alpha region and filling the space with white.
   - Overlay the fg over bg and created 20 variants: Using combination of 100 fg with flip (x2) and 100 bg and placing foreground images randomly. Used PIL python library for combining the images.
   - Depth images was created using the deep learning model (https://github.com/ialhashim/DenseDepth/blob/master/DenseDepth.ipynb) prediction.
   - Notebook file, used to create this dataset: https://github.com/sujitojha1/EVA4/blob/rev7/S14_15/EVA4_S15a_Solution_DenseDepth_v1.ipynb
-  - Notebook file, used to calculate statistics for this dataset:https://github.com/sujitojha1/EVA4/blob/rev7/S14_15/EVA4_S15a_Solution_DenseDepth_v1.ipynb
+  - Notebook file, used to calculate statistics for this dataset:https://github.com/sujitojha1/EVA4/blob/rev7/S14_15/EVA4_S15a_Solution_DenseDepth_v2.ipynb
