@@ -30,7 +30,13 @@ What should be metric ?? SSIM?
   3. Volume 
   4. Encoder & Decoder
 
+## Results
+
+## Observations
+
+## Learning Notes
+
 ## References
-Keywords: Background Substraction, 
+Keywords: Background Substraction, Change detection
 1. Background Subtraction on Depth Videos with Convolutional Neural Networks [link](https://arxiv.org/pdf/1901.05676.pdf)
 2. http://changedetection.net/
