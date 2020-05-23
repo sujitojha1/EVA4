@@ -18,7 +18,7 @@ What should be metric ?? SSIM?
 
 ## Intermediate Steps
   1. Load, unzip and calculate statistics - Understand the dataset
-  2. Different problem resnet 18 with load state dictionary and tensorboard
+  2. Different problem resnet 18 with load state dictionary and tensorboard, 
   3. Use the densedepth architecture - Understand the training setup
   4. Recreate Rohan's architecture & flow
   5. Explore & iterate on different error functions
@@ -40,3 +40,4 @@ What should be metric ?? SSIM?
 Keywords: Background Substraction, Change detection
 1. Background Subtraction on Depth Videos with Convolutional Neural Networks [link](https://arxiv.org/pdf/1901.05676.pdf)
 2. http://changedetection.net/
+3. https://pytorch.org/tutorials/intermediate/tensorboard_tutorial.html
