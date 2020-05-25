@@ -19,8 +19,8 @@ What should be metric ?? SSIM?
 ## Intermediate Steps
   1. Load, unzip and calculate statistics - Understand the dataset [link](https://github.com/sujitojha1/EVA4/blob/rev8/S15/EVA4_S15_Solution_DenseDepth_step1.ipynb)
   2. Different problem resnet 18 with load state dictionary and tensorboard, [link](https://github.com/sujitojha1/EVA4/blob/rev8/S15/EVA4_S15_Solution_DenseDepth_step2.ipynb)
-  3. Use the densedepth architecture - Understand the training setup (encoder & decoder) [link]()
-  4. Recreate Rohan's architecture & flow [link]()
+  3. Use the densedepth architecture - Understand the training setup (encoder & decoder) [link](https://github.com/sujitojha1/EVA4/blob/rev8/Models/model.py)
+  4. Recreate Rohan's architecture & flow [link](https://github.com/sujitojha1/EVA4/blob/rev8/S15/EVA4_S15_Solution_DenseDepth_step3.ipynb)
   5. Explore & iterate on different error functions (Not done)
   6. Architecture evaluation & code for intermediate plotting (Not done)
 
