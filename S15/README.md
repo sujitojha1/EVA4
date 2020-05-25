@@ -41,3 +41,4 @@ Keywords: Background Substraction, Change detection
 1. Background Subtraction on Depth Videos with Convolutional Neural Networks [link](https://arxiv.org/pdf/1901.05676.pdf)
 2. http://changedetection.net/
 3. https://pytorch.org/tutorials/intermediate/tensorboard_tutorial.html
+4. https://github.com/kuangliu/pytorch-cifar/blob/master/main.py
