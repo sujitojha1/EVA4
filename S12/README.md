@@ -1,4 +1,4 @@
-# Problem Statement EVA 4, Session12 : Tine Imagenet
+# Problem Statement EVA 4, Session12 : Tiny Imagenet
 
 ## Target:
 
