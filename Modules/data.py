@@ -12,6 +12,7 @@ Reference:
 # from PIL import Image
 # from io import BytesIO
 # import random
+from pathlib import Path
 
 
 class dataset:
@@ -19,12 +20,12 @@ class dataset:
     Class to load the data and define the data loader
     """
 
-    def __init__(self, root_folder):
-        self.root_folder = root_folder
+    def __init__(self):
+        self.root_folder = Path('./data/')
         self.fg_bg_filelist = loadZipToMem(root_folder)
 
 
-    def MasterDataset(self):
+    # def MasterDataset(self):
 
 
 
@@ -32,10 +33,12 @@ def loadZipToMem(root_folder):
     # Load zip file into memory
     from zipfile import ZipFile
     
-    zip_file = root_folder 
+    zip_file = root_folder/'fg_bg'
 
     input_zip = ZipFile(zip_file)
     data = {name: input_zip.read(name) for name in input_zip.namelist()}
+
+    print(len(data))
 
     return data
 
