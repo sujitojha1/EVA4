@@ -13,7 +13,37 @@ Reference:
 # from io import BytesIO
 # import random
 
+class dataset:
+    """
+    Class to load the data and define the data loader
+    """
 
+    def __init__(self, root_folder):
+        loadZipToMem(root_folder)
+
+
+
+def MasterDataset(root_folder):
+
+    nyu2_train = loadZipToMem(root_folder)
+
+
+def loadZipToMem(root_folder):
+    # Load zip file into memory
+    print('Loading dataset zip file...', end='')
+    from zipfile import ZipFile
+    
+    input_zip = ZipFile(zip_file)
+    data = {name: input_zip.read(name) for name in input_zip.namelist()}
+    nyu2_train = list((row.split(',') for row in (data['data/nyu2_train.csv']).decode("utf-8").split('\n') if len(row) > 0))
+
+    from sklearn.utils import shuffle
+    nyu2_train = shuffle(nyu2_train, random_state=0)
+
+    #if True: nyu2_train = nyu2_train[:40]
+
+    print('Loaded ({0}).'.format(len(nyu2_train)))
+    return data, nyu2_train
 
 # def _is_pil_image(img):
 #     return isinstance(img, Image.Image)
