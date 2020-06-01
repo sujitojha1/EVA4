@@ -2,7 +2,8 @@
 
 # Installing latest Albumentation library
 pip install -U git+https://github.com/albu/albumentations -q --quiet
-echo "Pip installation of Albumentation done !!"
+pip install kornia --quiet
+echo "Pip installation of Albumentation & Kornia done !!"
 
 mkdir 'dataset'
 
