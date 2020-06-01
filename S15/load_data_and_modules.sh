@@ -10,3 +10,6 @@ echo "Copying files from google drive to runtime !!"
 cp -r '/content/drive/My Drive/EVA4/S15/fg_bg.zip' dataset/fg_bg.zip 
 cp -r '/content/drive/My Drive/EVA4/S15/mask.zip' dataset/mask.zip 
 cp -r '/content/drive/My Drive/EVA4/S15/depth_map.zip' dataset/depth_map.zip 
+
+!cp -r '/content/EVA4/S14_15/images/bk_grnd' dataset/
+!mv 'dataset/bk_grnd' 'dataset/bg'
