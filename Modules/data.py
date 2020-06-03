@@ -7,7 +7,7 @@ Reference:
 import pandas as pd
 import numpy as np
 # import torch
-# from torch.utils.data import Dataset, DataLoader
+from torch.utils.data import Dataset, DataLoader
 from torchvision import transforms, utils
 from PIL import Image
 from io import BytesIO
@@ -43,6 +43,9 @@ class MasterDataset:
         self.mask_data      = dataset_obj.mask_data
         self.depth_map_data = dataset_obj.depth_map_data
         self.transform      = transform
+
+    def __len__(self):
+        return len(self.file_list)
 
     def __getitem__(self,idx):
 
