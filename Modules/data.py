@@ -15,6 +15,7 @@ from io import BytesIO
 from pathlib import Path
 
 size = 256
+root_folder = Path('./dataset/')
 
 gen_transform = transforms.Compose([
                                       transforms.Resize((size,size)),
@@ -27,8 +28,7 @@ class dataset:
     """
 
     def __init__(self):
-        self.root_folder = Path('./dataset/')
-        self.file_list,self.fg_bg_data,self.mask_data,self.depth_map_data = loadZipToMem(self.root_folder)
+        self.file_list,self.fg_bg_data,self.mask_data,self.depth_map_data = loadZipToMem()
 
 
     def __len__(self):
@@ -48,7 +48,7 @@ class MasterDataset:
 
         sample = self.file_list[idx]
 
-        bg    = Image.open(self.root_folder/('bg/'+sample[0:5] + ".jpg"))
+        bg    = Image.open(root_folder/('bg/'+sample[0:5] + ".jpg"))
         fg_bg = Image.open(BytesIO(self.fg_bg_data['fg_bg/'+ sample]))
         mask  = Image.open(BytesIO(self.mask_data['mask/'+ sample.replace("jpg",'png')])).convert('RGB')
         depth = Image.open(BytesIO(self.depth_map_data['depth_map/'+ sample]) )
@@ -63,7 +63,7 @@ class MasterDataset:
 
 
 
-def loadZipToMem(root_folder):
+def loadZipToMem():
     # Load zip file into memory
     from zipfile import ZipFile
     
