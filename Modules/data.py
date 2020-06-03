@@ -9,8 +9,8 @@ import numpy as np
 # import torch
 # from torch.utils.data import Dataset, DataLoader
 # from torchvision import transforms, utils
-# from PIL import Image
-# from io import BytesIO
+from PIL import Image
+from io import BytesIO
 # import random
 from pathlib import Path
 
@@ -24,6 +24,20 @@ class dataset:
         self.root_folder = Path('./dataset/')
         self.file_list,self.fg_bg_data,self.mask_data,self.depth_map_data = loadZipToMem(self.root_folder)
 
+
+    def __len__(self):
+      return len(self.file_list)
+
+    def __getitem__(self,idx):
+
+      sample = self.file_list[idx]
+
+      bg    = Image.open(self.root_folder/('bg/'+sample[0:5] + ".jpg"))
+      fg_bg = Image.open(BytesIO(self.fg_bg_data['fg_bg/'+ sample]))
+      mask  = Image.open(BytesIO(self.mask_data['mask/'+ sample.replace("jpg",'png')])).convert('RGB')
+      depth = Image.open(BytesIO(self.depth_map_data['depth_map/'+ sample]) )
+
+      return {'bg': bg, 'fg_bg': fg_bg, 'mask': mask, 'depth': depth}
 
     # def MasterDataset(self):
 
