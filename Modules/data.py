@@ -4,8 +4,8 @@ Reference:
 [1] Dense Depth https://github.com/ialhashim/DenseDepth/tree/master/PyTorch
 '''
 
-# import pandas as pd
-# import numpy as np
+import pandas as pd
+import numpy as np
 # import torch
 # from torch.utils.data import Dataset, DataLoader
 # from torchvision import transforms, utils
@@ -33,14 +33,27 @@ def loadZipToMem(root_folder):
     # Load zip file into memory
     from zipfile import ZipFile
     
-    zip_file = root_folder/'fg_bg'
+    fg_bg_zip = root_folder/'fg_bg'
+    mask_zip = root_folder/'mask'
+    depth_zip = root_folder/'depth'
 
-    input_zip = ZipFile(zip_file)
-    data = {name: input_zip.read(name) for name in input_zip.namelist()}
+    input_zip = ZipFile(fg_bg_zip)
+    fg_bg_data = {name: input_zip.read(name) for name in input_zip.namelist()}
 
-    print(len(data))
+    input_zip = ZipFile(mask_zip)
+    mask_data = {name: input_zip.read(name) for name in input_zip.namelist()}
 
-    return data
+    input_zip = ZipFile(depth_zip)
+    depth_data = {name: input_zip.read(name) for name in input_zip.namelist()}
+
+    file_list = 
+
+    from sklearn.utils import shuffle
+    nyu2_train = shuffle(nyu2_train, random_state=0)
+
+    #print(len(data))
+
+    return fg_bg_data,mask_data,depth_data
 
 # def _is_pil_image(img):
 #     return isinstance(img, Image.Image)
