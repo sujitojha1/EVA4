@@ -21,8 +21,8 @@ class dataset:
     """
 
     def __init__(self):
-        self.root_folder = Path('./data/')
-        self.fg_bg_filelist = loadZipToMem(root_folder)
+        self.root_folder = Path('./dataset/')
+        self.file_list,self.fg_bg_data,self.mask_data,self.depth_map_data = loadZipToMem(root_folder)
 
 
     # def MasterDataset(self):
@@ -33,9 +33,9 @@ def loadZipToMem(root_folder):
     # Load zip file into memory
     from zipfile import ZipFile
     
-    fg_bg_zip = root_folder/'fg_bg'
-    mask_zip = root_folder/'mask'
-    depth_zip = root_folder/'depth'
+    fg_bg_zip = root_folder/'fg_bg.zip'
+    mask_zip = root_folder/'mask.zip'
+    depth_map_zip = root_folder/'depth_map.zip'
 
     input_zip = ZipFile(fg_bg_zip)
     fg_bg_data = {name: input_zip.read(name) for name in input_zip.namelist()}
@@ -43,17 +43,18 @@ def loadZipToMem(root_folder):
     input_zip = ZipFile(mask_zip)
     mask_data = {name: input_zip.read(name) for name in input_zip.namelist()}
 
-    input_zip = ZipFile(depth_zip)
-    depth_data = {name: input_zip.read(name) for name in input_zip.namelist()}
+    input_zip = ZipFile(depth_map_zip)
+    depth_map_data = {name: input_zip.read(name) for name in input_zip.namelist()}
 
-    file_list = 
+    df = pd.read_csv(root_folder/'filelist.csv')
+    file_list = list(df['fg_bg_filename'].to_list())
 
     from sklearn.utils import shuffle
-    nyu2_train = shuffle(nyu2_train, random_state=0)
+    file_list = shuffle(file_list, random_state=0)
 
     #print(len(data))
 
-    return fg_bg_data,mask_data,depth_data
+    return file_list,fg_bg_data,mask_data,depth_map_data
 
 # def _is_pil_image(img):
 #     return isinstance(img, Image.Image)
