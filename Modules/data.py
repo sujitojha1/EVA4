@@ -37,7 +37,7 @@ class dataset:
 
 class MasterDataset:
 
-    def __init__(self,dataset_obj,transform=None):
+    def __init__(self,dataset_obj,transform=True):
         self.file_list      = dataset_obj.file_list
         self.fg_bg_data     = dataset_obj.fg_bg_data
         self.mask_data      = dataset_obj.mask_data
@@ -53,7 +53,7 @@ class MasterDataset:
         mask  = Image.open(BytesIO(self.mask_data['mask/'+ sample.replace("jpg",'png')])).convert('RGB')
         depth = Image.open(BytesIO(self.depth_map_data['depth_map/'+ sample]) )
 
-        if self.do_transform:
+        if self.transform:
             bg = gen_transform(bg)
             fg_bg = gen_transform(fg_bg)
             mask = (gen_transform(mask) > 0.8).float()
