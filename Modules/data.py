@@ -8,12 +8,18 @@ import pandas as pd
 import numpy as np
 # import torch
 # from torch.utils.data import Dataset, DataLoader
-# from torchvision import transforms, utils
+from torchvision import transforms, utils
 from PIL import Image
 from io import BytesIO
 # import random
 from pathlib import Path
 
+size = 256
+
+gen_transform = transforms.Compose([
+                                      transforms.Resize((size,size)),
+                                      transforms.ToTensor()
+                                      ])
 
 class dataset:
     """
@@ -28,18 +34,32 @@ class dataset:
     def __len__(self):
       return len(self.file_list)
 
+
+class MasterDataset():
+
+    def __init__(self,dataset_obj,transform=None):
+        self.file_list      = dataset_obj.file_list
+        self.fg_bg_data     = dataset_obj.fg_bg_data
+        self.mask_data      = dataset_obj.mask_data
+        self.depth_map_data = dataset_obj.depth_map_data
+        self.transform      = transform
+
     def __getitem__(self,idx):
 
-      sample = self.file_list[idx]
+        sample = self.file_list[idx]
 
-      bg    = Image.open(self.root_folder/('bg/'+sample[0:5] + ".jpg"))
-      fg_bg = Image.open(BytesIO(self.fg_bg_data['fg_bg/'+ sample]))
-      mask  = Image.open(BytesIO(self.mask_data['mask/'+ sample.replace("jpg",'png')])).convert('RGB')
-      depth = Image.open(BytesIO(self.depth_map_data['depth_map/'+ sample]) )
+        bg    = Image.open(self.root_folder/('bg/'+sample[0:5] + ".jpg"))
+        fg_bg = Image.open(BytesIO(self.fg_bg_data['fg_bg/'+ sample]))
+        mask  = Image.open(BytesIO(self.mask_data['mask/'+ sample.replace("jpg",'png')])).convert('RGB')
+        depth = Image.open(BytesIO(self.depth_map_data['depth_map/'+ sample]) )
 
-      return {'bg': bg, 'fg_bg': fg_bg, 'mask': mask, 'depth': depth}
+        if self.do_transform:
+            bg = gen_transform(bg)
+            fg_bg = gen_transform(fg_bg)
+            mask = (gen_transform(mask) > 0.8).float()
+            depth = gen_transform(depth)
 
-    # def MasterDataset(self):
+        return {'bg': bg, 'fg_bg': fg_bg, 'mask': mask, 'depth': depth}
 
 
 
