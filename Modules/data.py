@@ -35,7 +35,7 @@ class dataset:
       return len(self.file_list)
 
 
-class MasterDataset:
+class MasterDataset(Dataset):
 
     def __init__(self,dataset_obj,transform=True):
         self.file_list      = dataset_obj.file_list
