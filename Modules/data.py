@@ -22,7 +22,7 @@ class dataset:
 
     def __init__(self):
         self.root_folder = Path('./dataset/')
-        self.file_list,self.fg_bg_data,self.mask_data,self.depth_map_data = loadZipToMem(root_folder)
+        self.file_list,self.fg_bg_data,self.mask_data,self.depth_map_data = loadZipToMem(self.root_folder)
 
 
     # def MasterDataset(self):
