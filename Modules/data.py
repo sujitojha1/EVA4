@@ -13,6 +13,7 @@ from PIL import Image
 from io import BytesIO
 # import random
 from pathlib import Path
+import matplotlib.pyplot as plt
 
 size = 256
 root_folder = Path('./dataset/')
@@ -64,7 +65,49 @@ class MasterDataset(Dataset):
 
         return {'bg': bg, 'fg_bg': fg_bg, 'mask': mask, 'depth': depth}
 
+def sample_pictures(master_dataset_obj):
 
+    train_dl = DataLoader(master_dataset_obj, batch_size=4, shuffle=True)
+
+    # get some random training images
+    sample = next(iter(train_dl))
+
+    fig = plt.figure(figsize=(10, 10))
+
+    imgs = sample['bg']
+
+    grid_tensor = utils.make_grid(imgs, nrow=4)
+    grid_image = grid_tensor.permute(1,2,0)
+
+    ax = fig.add_subplot(4, 1, 1, xticks=[], yticks=[])
+    ax.imshow(grid_image)
+
+    imgs = sample['fg_bg']
+
+    grid_tensor = utils.make_grid(imgs, nrow=4)
+    grid_image = grid_tensor.permute(1,2,0)
+
+    ax = fig.add_subplot(4, 1, 2, xticks=[], yticks=[])
+    ax.imshow(grid_image)
+
+    imgs = sample['mask']
+
+    grid_tensor = utils.make_grid(imgs, nrow=4)
+    grid_image = grid_tensor.permute(1,2,0)
+
+    ax = fig.add_subplot(4, 1, 3, xticks=[], yticks=[])
+    ax.imshow(grid_image)
+
+    imgs = sample['depth']
+
+    grid_tensor = utils.make_grid(imgs, nrow=4)
+    grid_image = grid_tensor.permute(1,2,0)
+
+    ax = fig.add_subplot(4, 1, 4, xticks=[], yticks=[])
+    ax.imshow(grid_image)
+
+    fig.tight_layout()  
+    plt.show()
 
 def loadZipToMem():
     # Load zip file into memory
