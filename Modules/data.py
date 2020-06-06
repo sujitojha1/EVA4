@@ -33,19 +33,25 @@ fg_bg_transform = transforms.Compose([
                                       transforms.Normalize(mean,std)
                                       ])
 
+class dataset:
+    """
+    Class to load the data from zip file into memory
+    """
+
+    def __init__(self):
+        self.file_list,self.fg_bg_data,self.mask_data,self.depth_map_data = loadZipToMem()
+
+    def __len__(self):
+      return len(self.file_list)
+
 class MasterDataset(Dataset):
 
-    def __init__(self,transform=False):
-        self.file_list,self.fg_bg_data,self.mask_data,self.depth_map_data = loadZipToMem()
+    def __init__(self,dataset_obj,transform=True):
+        self.file_list      = dataset_obj.file_list
+        self.fg_bg_data     = dataset_obj.fg_bg_data
+        self.mask_data      = dataset_obj.mask_data
+        self.depth_map_data = dataset_obj.depth_map_data
         self.transform      = transform
-
-        # Defining CUDA
-        cuda = torch.cuda.is_available()
-        print("CUDA availability ?",cuda)
-
-        # Defining data loaders with setting
-        self.dataloaders_args = dict(shuffle=True, batch_size = bs, num_workers = 4, pin_memory = True) if cuda else dict(shuffle=True,batch_size = batch_size)
-        self.sample_dataloaders_args = self.dataloaders_args.copy()
 
     def __len__(self):
         return len(self.file_list)
@@ -71,15 +77,26 @@ class MasterDataset(Dataset):
 
         return {'bg': bg, 'fg_bg': fg_bg, 'mask': mask, 'depth': depth}
 
-    def loader(self):
-        return(DataLoader(self, **self.dataloaders_args),DataLoader(self, **self.dataloaders_args))
 
-def sample_pictures(master_dataset_obj):
+def loader(dataset_obj):
+    # Defining CUDA
+    cuda = torch.cuda.is_available()
+    print("CUDA availability ?",cuda)
 
-    train_dl = DataLoader(master_dataset_obj, batch_size=4, shuffle=True)
+    # Defining data loaders with setting
+    dataloaders_args = dict(shuffle=True, batch_size = bs, num_workers = 4, pin_memory = True) if cuda else dict(shuffle=True,batch_size = bs)
+
+    train_ds = MasterDataset(dataset_obj,transform=True)
+
+    return(DataLoader(train_ds, **dataloaders_args),DataLoader(train_ds, **dataloaders_args))
+
+def sample_pictures(dataset_obj):
+
+    sample_ds = MasterDataset(dataset_obj,transform=False)
+    sample_dl = DataLoader(sample_ds, batch_size=4, shuffle=True)
 
     # get some random training images
-    sample = next(iter(train_dl))
+    sample = next(iter(sample_dl))
 
     fig = plt.figure(figsize=(10, 10))
 
