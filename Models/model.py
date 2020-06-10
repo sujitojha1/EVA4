@@ -80,11 +80,8 @@ class Model(nn.Module):
 
     def forward(self, inputs):
 
-        # bg_inp    = inputs['bg']
-        # fg_bg_inp = inputs['fg_bg']
-
-        bg_inp    = inputs[0]
-        fg_bg_inp = inputs[1]
+        bg_inp    = inputs['bg']
+        fg_bg_inp = inputs['fg_bg']
 
         x = torch.cat([bg_inp,fg_bg_inp],dim=1)
 
