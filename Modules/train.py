@@ -13,7 +13,7 @@ from loss import ssim
 from data import getTrainingTestingData
 from utils import AverageMeter, DepthNorm, colorize
 
-def main():
+def train():
     # Arguments
     parser = argparse.ArgumentParser(description='High Quality Monocular Depth Estimation via Transfer Learning')
     parser.add_argument('--epochs', default=20, type=int, help='number of total epochs to run')
@@ -113,6 +113,3 @@ def LogProgress(model, writer, test_loader, epoch):
     del image
     del depth
     del output
-
-if __name__ == '__main__':
-    main()

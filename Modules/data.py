@@ -75,8 +75,8 @@ class MasterDataset(Dataset):
         mask   = (gen_transform(mask) > 0.8).float()
         depth  = gen_transform(depth)
 
-        return {'bg': bg, 'fg_bg': fg_bg, 'mask': mask, 'depth': depth}
-
+        return [bg, fg_bg, mask, depth]
+        # return {'bg': bg, 'fg_bg': fg_bg, 'mask': mask, 'depth': depth}
 
 def loader(dataset_obj):
     # Defining CUDA
