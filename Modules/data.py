@@ -14,6 +14,7 @@ from io import BytesIO
 # import random
 from pathlib import Path
 import matplotlib.pyplot as plt
+from EVA4.Modules.utils import colorize
 
 bs   = 25
 size = 256
@@ -126,7 +127,7 @@ def sample_pictures(dataset_obj):
 
     imgs = sample['depth']
 
-    grid_tensor = utils.make_grid(imgs, nrow=4)
+    grid_tensor = colorize(vutils.make_grid(depth.data, nrow=4, normalize=False)
     grid_image = grid_tensor.permute(1,2,0)
 
     ax = fig.add_subplot(4, 1, 4, xticks=[], yticks=[])
