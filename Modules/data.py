@@ -128,7 +128,7 @@ def sample_pictures(dataset_obj):
     imgs = sample['depth']
 
     grid_tensor = colorize(utils.make_grid(imgs, nrow=4, normalize=False))
-    grid_image = grid_tensor.permute(1,2,0)
+    grid_image = grid_tensor
 
     ax = fig.add_subplot(4, 1, 4, xticks=[], yticks=[])
     ax.imshow(grid_image)
