@@ -1,5 +1,4 @@
 import time
-import argparse
 import datetime
 
 import torch
@@ -8,39 +7,21 @@ import torch.nn.utils as utils
 import torchvision.utils as vutils    
 from tensorboardX import SummaryWriter
 
-from model import Model
-from loss import ssim
-from data import getTrainingTestingData
-from utils import AverageMeter, DepthNorm, colorize
+from EVA4.Modules.loss import ssim
+from EVA4.Modules.utils import AverageMeter, DepthNorm, colorize
+from EVA4.Modules import *
 
-def train():
-    # Arguments
-    parser = argparse.ArgumentParser(description='High Quality Monocular Depth Estimation via Transfer Learning')
-    parser.add_argument('--epochs', default=20, type=int, help='number of total epochs to run')
-    parser.add_argument('--lr', '--learning-rate', default=0.0001, type=float, help='initial learning rate')
-    parser.add_argument('--bs', default=4, type=int, help='batch size')
-    args = parser.parse_args()
+def train(model, device, depth_mask_data, optimizer, criterion, scheduler):
 
-    # Create model
-    model = Model().cuda()
-    print('Model created.')
-
-    # Training parameters
-    optimizer = torch.optim.Adam( model.parameters(), args.lr )
-    batch_size = args.bs
-    prefix = 'densenet_' + str(batch_size)
-
-    # Load data
-    train_loader, test_loader = getTrainingTestingData(batch_size=batch_size)
+    # Train, test dataloader
+    train_loader, test_loader = loader(depth_mask_data)
 
     # Logging
-    writer = SummaryWriter(comment='{}-lr{}-e{}-bs{}'.format(prefix, args.lr, args.epochs, args.bs), flush_secs=30)
-
-    # Loss
-    l1_criterion = nn.L1Loss()
+    prefix = 'Run'
+    writer = SummaryWriter(comment='{}-lr{}-e{}-bs{}'.format(prefix, 0.01, 10, 25), flush_secs=30)
 
     # Start training...
-    for epoch in range(args.epochs):
+    for epoch in range(10):
         batch_time = AverageMeter()
         losses = AverageMeter()
         N = len(train_loader)
@@ -64,7 +45,7 @@ def train():
             output = model(image)
 
             # Compute the loss
-            l_depth = l1_criterion(output, depth_n)
+            l_depth = criterion(output, depth_n)
             l_ssim = torch.clamp((1 - ssim(output, depth_n, val_range = 1000.0 / 10.0)) * 0.5, 0, 1)
 
             loss = (1.0 * l_ssim) + (0.1 * l_depth)
