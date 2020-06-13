@@ -63,8 +63,8 @@ class MasterDataset(Dataset):
 
         bg    = Image.open(root_folder/('bg/'+sample[0:5] + ".jpg"))
         fg_bg = Image.open(BytesIO(self.fg_bg_data['fg_bg/'+ sample]))
-        mask  = Image.open(BytesIO(self.mask_data['mask/'+ sample.replace("jpg",'png')])).convert('L')
-        depth = Image.open(BytesIO(self.depth_map_data['depth_map/'+ sample])).convert('I')
+        mask  = Image.open(BytesIO(self.mask_data['mask/'+ sample.replace("jpg",'png')]))[:,:,:3]
+        depth = Image.open(BytesIO(self.depth_map_data['depth_map/'+ sample]))[:,:,:3]
 
         if self.transform:
             bg     = fg_bg_transform(bg)
