@@ -76,7 +76,7 @@ class MasterDataset(Dataset):
         mask   = (gen_transform(mask) > 0.8).float()
         depth  = gen_transform(depth)
 
-        return {'bg': bg, 'fg_bg': fg_bg, 'mask': mask[:3,:,:], 'depth': depth[:3,:,:]}
+        return {'bg': bg, 'fg_bg': fg_bg, 'mask': mask[1,:,:], 'depth': depth[1,:,:]}
 
 
 def loader(dataset_obj):
